@@ -890,6 +890,9 @@ if ($isInfo) {
 $wk = KANPAICLASSIC\Control::getWk();
 $wkAnzahl = $wk->getAnzahl();
 
+restaurant_render_exit:
+// Restaurant routes jump here to render with template
+// Generate menu and footer before rendering
 ob_start();
 include TEMPLATE_PATH . '/menu_oben.tpl.php';
 $menu_oben = ob_get_contents();
@@ -902,14 +905,9 @@ ob_clean();
 
 $footer = KANPAICLASSIC\Helper::getFooter(true);
 
-restaurant_render_exit:
-// Restaurant routes jump here to render with template
 if (!isset($titel_tag)) $titel_tag = '';
 if (!isset($description)) $description = '';
 if (!isset($keywords)) $keywords = '';
-if (!isset($menu_oben)) $menu_oben = '';
-if (!isset($menu_unten)) $menu_unten = '';
-if (!isset($footer)) $footer = KANPAICLASSIC\Helper::getFooter(true);
 if (!isset($promotext)) $promotext = '';
 if (!isset($promotext2)) $promotext2 = '';
 if (!isset($infotitel)) $infotitel = '';

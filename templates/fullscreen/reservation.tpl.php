@@ -1,120 +1,82 @@
 <?php
-/* Reservation page template - Miaowei Teppanyaki
-   Style: Dark luxury Japanese, inspired by kanpaiclassic.tw
-*/
+/* Reservation page — Miaowei Teppanyaki Tepan Design */
 if (!isset($res_ok)) $res_ok = false;
 if (!isset($_SESSION['reservation_token'])) $_SESSION['reservation_token'] = bin2hex(random_bytes(32));
 $token = $_SESSION['reservation_token'];
 ?>
-<section class="page-section reservation-page">
-  <div class="section-header">
-    <h2 class="section-title">Reservierung</h2>
-    <p class="section-subtitle">Tischreservierung . テーブル予約</p>
+<!-- Page Hero -->
+<section class="tp-page-hero tp-page-hero-red">
+  <div class="tp-page-hero-content">
+    <h1>在线预订</h1>
+    <p>预订您的专属用餐时光</p>
   </div>
+</section>
 
-  <?php if ($res_ok): ?>
-    <div class="reservation-success">
-      <div class="success-icon">&#10003;</div>
-      <h3>Vielen Dank fur Ihre Reservierung!</h3>
-      <p>Wir haben Ihre Anfrage erhalten und werden sie in Kurze bestatigen.</p>
-      <p>Eine Bestatigungs-E-Mail wurde an Ihre Adresse gesendet.</p>
-      <a href="/" class="btn btn-primary">Zuruck zur Startseite</a>
+<section class="tp-section tp-bg-white">
+  <div class="tp-container tp-container-sm">
+    <?php if ($res_ok): ?>
+    <div class="tp-success-box">
+      <div class="tp-success-icon">&#10003;</div>
+      <h3>预订成功！</h3>
+      <p>感谢您的预订，我们会尽快与您确认。</p>
+      <p>确认邮件已发送至您的邮箱。</p>
+      <a href="/restaurant_home" class="tp-btn tp-btn-primary">返回首页</a>
     </div>
-  <?php else: ?>
-    <form method="post" action="/reservation?func=book" class="reservation-form">
-      <input type="hidden" name="token" value="<?php echo htmlspecialchars($token, ENT_QUOTES, 'UTF-8'); ?>">
-
-      <div class="form-row">
-        <div class="form-group">
-          <label for="res_name">Name <span class="required">*</span></label>
-          <input type="text" id="res_name" name="name" required maxlength="191" placeholder="Ihr Name">
+    <?php else: ?>
+    <div class="tp-card">
+      <form method="post" action="/reservation?func=book" class="tp-form">
+        <input type="hidden" name="token" value="<?php echo htmlspecialchars($token, ENT_QUOTES, 'UTF-8'); ?>">
+        <div class="tp-form-row">
+          <div class="tp-form-group">
+            <label>&#128100; 姓名 *</label>
+            <input type="text" name="name" required placeholder="请输入您的姓名">
+          </div>
+          <div class="tp-form-group">
+            <label>&#9993; 电子邮箱 *</label>
+            <input type="email" name="email" required placeholder="example@email.com">
+          </div>
         </div>
-        <div class="form-group">
-          <label for="res_email">E-Mail <span class="required">*</span></label>
-          <input type="email" id="res_email" name="email" required placeholder="ihre@email.de">
+        <div class="tp-form-group">
+          <label>&#128222; 联系电话 *</label>
+          <input type="tel" name="phone" required placeholder="+49 XXX XXXXXXX">
         </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label for="res_phone">Telefon</label>
-          <input type="text" id="res_phone" name="phone" placeholder="+49 621 123456">
+        <div class="tp-form-row tp-form-row-3">
+          <div class="tp-form-group">
+            <label>&#128197; 日期 *</label>
+            <input type="date" name="date" required min="<?php echo date('Y-m-d'); ?>" max="<?php echo date('Y-m-d', strtotime('+90 days')); ?>">
+          </div>
+          <div class="tp-form-group">
+            <label>&#128338; 时间 *</label>
+            <select name="time" required>
+              <option value="">选择时间</option>
+              <?php foreach(['17:00','17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30'] as $t): ?>
+              <option value="<?php echo $t; ?>"><?php echo $t; ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+          <div class="tp-form-group">
+            <label>&#128101; 人数 *</label>
+            <select name="persons" required>
+              <?php for($i=1;$i<=10;$i++): ?>
+              <option value="<?php echo $i; ?>" <?php echo $i==2?'selected':''; ?>><?php echo $i; ?> 位</option>
+              <?php endfor; ?>
+            </select>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="res_persons">Personen <span class="required">*</span></label>
-          <select id="res_persons" name="persons" required>
-            <option value="1">1 Person</option>
-            <option value="2" selected>2 Personen</option>
-            <option value="3">3 Personen</option>
-            <option value="4">4 Personen</option>
-            <option value="5">5 Personen</option>
-            <option value="6">6 Personen</option>
-            <option value="7">7 Personen</option>
-            <option value="8">8 Personen</option>
-            <option value="9">9 Personen</option>
-            <option value="10">10 Personen</option>
-            <option value="12">12 Personen</option>
-            <option value="14">14 Personen</option>
-            <option value="16">16 Personen</option>
-            <option value="20">20 Personen</option>
-          </select>
+        <div class="tp-form-group">
+          <label>特殊要求（可选）</label>
+          <textarea name="notes" rows="4" placeholder="如有食物过敏、特殊饮食需求或其他要求，请在此说明"></textarea>
         </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label for="res_date">Datum <span class="required">*</span></label>
-          <input type="date" id="res_date" name="date" required min="<?php echo date('Y-m-d'); ?>" max="<?php echo date('Y-m-d', strtotime('+90 days')); ?>">
+        <div class="tp-privacy-notice">
+          <p><strong>根据德国数据保护法(DSGVO)</strong>，您的个人信息将仅用于预订确认和餐厅服务。我们不会将您的信息分享给第三方。提交此表单即表示您同意我们的隐私政策。</p>
         </div>
-        <div class="form-group">
-          <label for="res_time">Zeit <span class="required">*</span></label>
-          <select id="res_time" name="time" required>
-            <option value="">-- Bitte wahlen --</option>
-            <option value="11:00">11:00</option>
-            <option value="11:30">11:30</option>
-            <option value="12:00">12:00</option>
-            <option value="12:30">12:30</option>
-            <option value="13:00">13:00</option>
-            <option value="13:30">13:30</option>
-            <option value="14:00">14:00</option>
-            <option value="14:30">14:30</option>
-            <option value="17:00">17:00</option>
-            <option value="17:30">17:30</option>
-            <option value="18:00">18:00</option>
-            <option value="18:30">18:30</option>
-            <option value="19:00">19:00</option>
-            <option value="19:30">19:30</option>
-            <option value="20:00">20:00</option>
-            <option value="20:30">20:30</option>
-            <option value="21:00">21:00</option>
-            <option value="21:30">21:30</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="form-group form-group-full">
-        <label for="res_notes">Besondere Wunsche</label>
-        <textarea id="res_notes" name="notes" rows="3" placeholder="Allergien, besondere Anlasse, Sitzplatzwunsch..."></textarea>
-      </div>
-
-      <div class="form-actions">
-        <button type="submit" class="btn btn-primary btn-large">Reservierung absenden</button>
-      </div>
-    </form>
-
-    <div class="reservation-info">
-      <div class="info-item">
-        <span class="info-icon">&#128338;</span>
-        <p><strong>Offnungszeiten</strong><br>Di-Do: 11:00-22:00<br>Fr-So: 11:00-23:00<br>Montag: Ruhetag</p>
-      </div>
-      <div class="info-item">
-        <span class="info-icon">&#128222;</span>
-        <p><strong>Telefonische Reservierung</strong><br>+49 621 XXXXXX</p>
-      </div>
-      <div class="info-item">
-        <span class="info-icon">&#128205;</span>
-        <p><strong>Adresse</strong><br>Augustaanlage 15<br>68161 Mannheim</p>
-      </div>
+        <button type="submit" class="tp-btn tp-btn-primary tp-btn-block">确认预订</button>
+      </form>
     </div>
-  <?php endif; ?>
+    <div class="tp-info-row">
+      <div class="tp-info-card"><h3>预订须知</h3><ul><li>我们会在24小时内通过邮件或电话确认您的预订</li><li>如需取消或更改预订，请至少提前24小时通知</li><li>超过预订时间15分钟未到，预订将自动取消</li><li>10人以上的团体预订请直接电话联系</li><li>节假日期间建议提前3-7天预订</li></ul></div>
+      <div class="tp-info-card"><h3>电话预订</h3><p>您也可以直接致电预订：</p><div class="tp-phone-number"><span class="tp-phone-icon">&#128222;</span><strong><?php echo isset($params->firma['telefon']) ? $params->firma['telefon'] : '+49 621 XXXXXX'; ?></strong></div><p class="tp-text-sm">营业时间内接听预订电话</p></div>
+    </div>
+    <?php endif; ?>
+  </div>
 </section>
