@@ -114,10 +114,10 @@ class KANPAICLASSIC_database
          return false;
       }
 
-      // Konfiguration ab MySQL 5.8.x
+      // MySQL 8.0+ compatible mode (NO_AUTO_CREATE_USER removed in MySQL 8+)
       // $mysqli->query("SET SESSION sql_mode = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'");
       // Strict-Mode
-      $mysqli->query("SET SESSION sql_mode = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'");
+      $mysqli->query("SET SESSION sql_mode = 'NO_ENGINE_SUBSTITUTION'");
       // Normaler Mode
       // $mysqli->query("SET SESSION sql_mode = ''");
       return $mysqli;

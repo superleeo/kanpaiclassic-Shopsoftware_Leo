@@ -192,8 +192,16 @@ if (!defined('KANPAICLASSIC')) {
 <?php // ********** Artikelliste oder anderer Main-Inhalt ********** ?>
          <div id="main" data-logo_width="<?php echo $shop_width; ?>" data-inner_width="<?php echo $content_width; ?>">
             <div id="main_content" class="main_content">
+<?php // ********** Restaurant pages - render first ********** ?>
+               <?php if (in_array($params->task, array('restaurant_home', 'menu', 'reservation', 'vouchers', 'merch'))) { ?>
+               <div class="content_center" style="max-width:100%; padding:0;">
+                  <?php echo $artikel_main; ?>
+                  <div class="clear"></div>
+               </div>
+               <?php $artikel_main = ''; ?>
+               <?php } ?>
 <?php // ********** Hauptbereich - nicht Artikelliste ********** ?>
-               <?php if ($params->task != 'kategorie' && !$startseite) { ?>
+               <?php if ($params->task != 'kategorie' && !$startseite && !in_array($params->task, array('restaurant_home', 'menu', 'reservation', 'vouchers', 'merch'))) { ?>
 <!--               <div class="content_center article_hide<?php echo ($cat_left ? ( $module_unten == true ? ' padding_top' : ($is_flaeche_mitte ? ' padding_top padding_bottom' : ' padding_top')) : ($is_flaeche_mitte ? ' padding_top padding_bottom' : ' bg_innen padding_top padding_bottom bg_innen')); ?>"> -->
                <div class="content_center article_hide<?php echo ($cat_left ? ( $module_unten == true ? '' : ' padding_top padding_bottom') : ($is_flaeche_mitte ? ' padding_top padding_bottom' : ' bg_innen padding_top padding_bottom bg_innen')); ?>">
                   <?php //                           Kategorie links?   ja    nein / Fläche Liste          ja                     nein/ Fläche Mitee        ja                                nein ?>

@@ -71,8 +71,12 @@ $text        = KANPAICLASSIC\Control::getText();
 // Parameter laden / $params->taask festlegen
 $params->setParams();
 
-if (!file_exists(TEMPLATE_PATH.'/css/template.json') || !isset($params->firma['bildschirmbreit'])) {
+if (!file_exists(TEMPLATE_PATH.'/css/template.json')) {
    echo '<h1>Design/Templatedesign muss gespeichert werden</h1>';
+   // Missing template.json - design not yet saved. Continue anyway for restaurant pages.
+}
+if (!isset($params->firma['bildschirmbreit'])) {
+   $params->firma['bildschirmbreit'] = 'y'; // default for restaurant pages
 }
 
 // /admin/css/admin.css / /admin/js/admin.js erstellen (aus /admin/developer)
@@ -220,7 +224,7 @@ if ($params->task == 'download') {
 	         include TEMPLATE_PATH . '/reservation.tpl.php';
 	         $artikel_main = ob_get_contents();
 	         ob_clean();
-	         return;
+	         goto restaurant_render_exit;
 	      }
 
 	      require_once 'classes/reservation.class.php';
@@ -270,7 +274,7 @@ if ($params->task == 'download') {
 	         include TEMPLATE_PATH . '/reservation.tpl.php';
 	         $artikel_main = ob_get_contents();
 	         ob_clean();
-	         return;
+	         goto restaurant_render_exit;
 	      }
 	   }
 
@@ -281,7 +285,7 @@ if ($params->task == 'download') {
 	   include TEMPLATE_PATH . '/reservation.tpl.php';
 	   $artikel_main = ob_get_contents();
 	   ob_clean();
-	   return;
+	   goto restaurant_render_exit;
 	}
 
 	// Restaurant home page
@@ -290,7 +294,7 @@ if ($params->task == 'download') {
 	   include TEMPLATE_PATH . '/restaurant_home.tpl.php';
 	   $artikel_main = ob_get_contents();
 	   ob_clean();
-	   return;
+	   goto restaurant_render_exit;
 	}
 
 	// Menu page
@@ -299,7 +303,7 @@ if ($params->task == 'download') {
 	   include TEMPLATE_PATH . '/menu_restaurant.tpl.php';
 	   $artikel_main = ob_get_contents();
 	   ob_clean();
-	   return;
+	   goto restaurant_render_exit;
 	}
 
 	// Vouchers page
@@ -308,7 +312,7 @@ if ($params->task == 'download') {
 	   include TEMPLATE_PATH . '/vouchers.tpl.php';
 	   $artikel_main = ob_get_contents();
 	   ob_clean();
-	   return;
+	   goto restaurant_render_exit;
 	}
 
 	// Merch page
@@ -317,7 +321,7 @@ if ($params->task == 'download') {
 	   include TEMPLATE_PATH . '/merch.tpl.php';
 	   $artikel_main = ob_get_contents();
 	   ob_clean();
-	   return;
+	   goto restaurant_render_exit;
 	}
 
 
@@ -897,6 +901,20 @@ $menu_unten = ob_get_contents();
 ob_clean();
 
 $footer = KANPAICLASSIC\Helper::getFooter(true);
+
+restaurant_render_exit:
+// Restaurant routes jump here to render with template
+if (!isset($titel_tag)) $titel_tag = '';
+if (!isset($description)) $description = '';
+if (!isset($keywords)) $keywords = '';
+if (!isset($menu_oben)) $menu_oben = '';
+if (!isset($menu_unten)) $menu_unten = '';
+if (!isset($footer)) $footer = KANPAICLASSIC\Helper::getFooter(true);
+if (!isset($promotext)) $promotext = '';
+if (!isset($promotext2)) $promotext2 = '';
+if (!isset($infotitel)) $infotitel = '';
+if (!isset($infotext)) $infotext = '';
+if (!isset($script)) $script = '';
 include TEMPLATE_PATH . '/template.tpl.php';
 $params->selected_lang = $lang_back;
 return;

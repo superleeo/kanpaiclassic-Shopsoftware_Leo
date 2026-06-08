@@ -13,19 +13,19 @@
       <div class="merch-icon">&#127911;</div>
       <h3>T-Shirt</h3>
       <p>Miaowei Classic Logo-Shirt</p>
-      <a href="/index.php?task=kategorie" class="btn btn-outline">Zum Shop</a>
+      <a href="/kategorie" class="btn btn-outline">Zum Shop</a>
     </div>
     <div class="merch-card">
       <div class="merch-icon">&#9749;</div>
       <h3>Tasse</h3>
       <p>Japanische Keramiktasse</p>
-      <a href="/index.php?task=kategorie" class="btn btn-outline">Zum Shop</a>
+      <a href="/kategorie" class="btn btn-outline">Zum Shop</a>
     </div>
     <div class="merch-card">
       <div class="merch-icon">&#127873;</div>
       <h3>Geschenkbox</h3>
       <p>Sushi-Set fur zu Hause</p>
-      <a href="/index.php?task=kategorie" class="btn btn-outline">Zum Shop</a>
+      <a href="/kategorie" class="btn btn-outline">Zum Shop</a>
     </div>
   </div>
 </section>

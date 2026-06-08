@@ -13,19 +13,19 @@
       <div class="voucher-amount">&euro;25</div>
       <h3>Gutschein</h3>
       <p>Kleiner Genuss</p>
-      <a href="/index.php?task=kategorie" class="btn btn-outline">Zum Shop</a>
+      <a href="/kategorie" class="btn btn-outline">Zum Shop</a>
     </div>
     <div class="voucher-card">
       <div class="voucher-amount">&euro;50</div>
       <h3>Gutschein</h3>
       <p>Teppanyaki-Erlebnis</p>
-      <a href="/index.php?task=kategorie" class="btn btn-outline">Zum Shop</a>
+      <a href="/kategorie" class="btn btn-outline">Zum Shop</a>
     </div>
     <div class="voucher-card">
       <div class="voucher-amount">&euro;100</div>
       <h3>Gutschein</h3>
       <p>Premium-Erlebnis</p>
-      <a href="/index.php?task=kategorie" class="btn btn-outline">Zum Shop</a>
+      <a href="/kategorie" class="btn btn-outline">Zum Shop</a>
     </div>
   </div>
   <p class="voucher-note">Gutscheine sind 3 Jahre gultig und konnen fur alle Speisen und Getranke eingelost werden.</p>

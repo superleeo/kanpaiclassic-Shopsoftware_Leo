@@ -16,8 +16,8 @@
       <span class="dot"></span>
     </div>
     <div class="hero-actions">
-      <a class="btn btn-primary" href="/index.php?task=menu">Speisekarte</a>
-      <a class="btn btn-outline" href="/index.php?task=reservation">Tisch reservieren</a>
+      <a class="btn btn-primary" href="/menu">Speisekarte</a>
+      <a class="btn btn-outline" href="/reservation">Tisch reservieren</a>
     </div>
   </div>
   <div class="hero-scroll">
@@ -39,8 +39,8 @@
       <p>Frischer Fisch, hochwertiges Fleisch und saisonale Zutaten - mit Leidenschaft zubereitet vor Ihren Augen.</p>
     </div>
     <div class="brand-actions">
-      <a class="btn btn-primary" href="/index.php?task=menu">Speisekarte entdecken</a>
-      <a class="btn btn-text" href="/index.php?task=kontakt">Uber uns</a>
+      <a class="btn btn-primary" href="/menu">Speisekarte entdecken</a>
+      <a class="btn btn-text" href="/kontakt">Uber uns</a>
     </div>
   </div>
 </section>
@@ -74,7 +74,7 @@
 <!-- CTA Section -->
 <section class="page-section cta-section">
   <div class="cta-grid">
-    <a href="/index.php?task=menu" class="cta-card">
+    <a href="/menu" class="cta-card">
       <div class="cta-card-image" style="background-image:url('/templates/fullscreen/images/system/flaggen/deu.png');background-size:cover;">
         <div class="cta-card-overlay">
           <h3>Speisekarte</h3>
@@ -82,7 +82,7 @@
         </div>
       </div>
     </a>
-    <a href="/index.php?task=reservation" class="cta-card">
+    <a href="/reservation" class="cta-card">
       <div class="cta-card-image" style="background:#1a1a1a;">
         <div class="cta-card-overlay">
           <h3>Jetzt reservieren</h3>

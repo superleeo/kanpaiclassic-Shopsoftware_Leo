@@ -21,7 +21,7 @@ $token = $_SESSION['reservation_token'];
       <a href="/" class="btn btn-primary">Zuruck zur Startseite</a>
     </div>
   <?php else: ?>
-    <form method="post" action="/index.php?task=reservation&func=book" class="reservation-form">
+    <form method="post" action="/reservation?func=book" class="reservation-form">
       <input type="hidden" name="token" value="<?php echo htmlspecialchars($token, ENT_QUOTES, 'UTF-8'); ?>">
 
       <div class="form-row">

@@ -63,6 +63,7 @@ if ($cat_left) {
 $startseite = false;
 $starthtml  = '';
 
+// Restaurant pages use their own template, not the default start page
 if ($params->task == '') {
    $startseite = true;
    $starthtml  = KANPAICLASSIC\Helper::getStartseite();
