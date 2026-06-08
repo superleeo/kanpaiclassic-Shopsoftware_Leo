@@ -1,0 +1,404 @@
+/*
+Owner: TWINT AG
+Ownder URL: http://www.twint.ch
+License: All rights reserved
+*/
+/* ------------------------------------------------------------------------ */
+/* Style Reset */
+/* ------------------------------------------------------------------------ */
+#twint .section,
+#twint .nav,
+#twint .header,
+#twint .page,
+#twint .row {
+	display: block;
+}
+#twint .section {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    float: left;
+}
+#twint .section:after {
+    content: "\0020";
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+#twint .wrap {
+	width: 95%;
+	margin: 0 auto;
+	position: relative;
+	padding: 0;
+	height: inherit;
+}
+#twint .nav {
+	height: 50px;
+	background: #ffffff;
+	border-bottom: 1px solid rgb(89,89,89);
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	-ms-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+}
+#twint .header {
+	height: 170px;
+	background: #ffffff;
+}
+#twint .page {
+	height: auto;
+}
+#twint .column {
+	float: left;
+	display: inline;
+	margin: 0 auto;
+	padding: 0;
+}
+#twint .one-third {
+	width: 33.33%;
+	margin: 0 auto;
+}
+#twint .text-right {
+	text-align: right;
+}
+#twint .text-left {
+	text-align: left;
+}
+#twint .text-center {
+	text-align: center;
+}
+#twint .text-uppercase{
+	text-transform: uppercase;
+}
+#twint .float-rt {
+	float: right;
+}
+#twint .float-lt {
+	float: left;
+}
+#twint .row {
+	height: auto;
+	background-color: #ffffff;
+	margin: 10px 0 10px 0;
+}
+#twint .row:before,
+#twint .row:after {
+    content: '\0020';
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+#twint .row:after,
+.clearfix {
+	clear: both;
+}
+#twint .hidden {
+	display: none;
+}
+#twint .grey-bg {
+	background-color: rgb(245,245,245);
+}
+
+/* ------------------------------------------------------------------------ */
+/* Fonts */
+/* ------------------------------------------------------------------------ */
+@font-face {
+	font-family: markproLight;
+	src: url('fonts/MarkOffcPro.eot');
+	src:	url('fonts/MarkOffcPro.eot?#iefix') format('embedded-opentype'),
+			url('fonts/MarkWebPro-Light.woff') format('woff'),
+			url('fonts/MarkOffcPro-Light.ttf') format('truetype');
+}
+
+/* ------------------------------------------------------------------------ */
+/* Navigation */
+/* ------------------------------------------------------------------------ */
+#twint .menu-item,
+#twint .header-item {
+	vertical-align: middle;
+	position: relative;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+#twint .menu-item.img,
+#twint .header-item.img,
+#twint p img {
+	vertical-align: middle;
+}
+#twint .back-link,
+#twint .back-link:link,
+#twint .back-link:visited {
+	display: inline-block;
+	left: 0;
+	height: 16px;
+	text-indent: 20px;
+	background: url('images/arrow_back.png') 0 0 no-repeat;
+}
+#twint .back-link:hover,
+#twint .back-link:focus {
+	background: url('images/arrow_back.png') 0 -16px no-repeat;
+}
+#twint .back-link:active {
+	background: url('images/arrow_back.png') 0 -16px no-repeat;
+}
+
+/* ------------------------------------------------------------------------ */
+/* Elements */
+/* ------------------------------------------------------------------------ */
+#twint .icon-info {
+	background: url('images/info_icon.png');
+	background-repeat: no-repeat;
+	background-size: 15px 15px;
+	width: 16px;
+	height: 17px;
+	margin-right: 8px;
+	display: inline-block;
+	vertical-align: middle;
+}
+#twint .datatrans-logo {
+	background: url('images/datatrans_logo.png');
+	background-repeat: no-repeat;
+	background-size: 100px 24px;
+	width: 100px;
+	height: 24px;
+	display: inline-block;
+	vertical-align: middle;
+}
+#twint .twint-logo {
+	background: url('images/twint_logo.png');
+	background-repeat: no-repeat;
+	background-size: 80px 129px;
+	width: 80px;
+	height: 129px;
+	display: inline-block;
+	vertical-align: middle;
+}
+#twint .postfinance-logo {
+	background: url('images/pf_logo.png');
+	background-repeat: no-repeat;
+	background-size: 80px 36px;
+	width: 80px;
+	height: 36px;
+	display: inline-block;
+	vertical-align: middle;
+}
+#twint .credentials {
+	position: relative;
+	display: inline-block;
+	height: 350px;
+	overflow: hidden;
+}
+#twint .credentials-box {
+	position: relative;
+	display: inline-block;
+	padding: 30px 10px 0px 10px;
+}
+#twint .credentials-item {
+	background-color: rgb(254,254,254);
+	vertical-align: middle;
+	position: relative;
+	height: 220px;
+	width: 220px;
+	margin: 0 auto;
+}
+#twint .credentials-item img {
+	vertical-align: middle;
+	position: relative;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+	margin: 0 auto;
+}
+#twint .credential-number {
+	background-color: #cdcccc;
+	font-family: markproLight, Arial, 'Helvetica Neue', Helvetica, sans-serif;
+	font-size: 28px;
+	font-weight: normal;
+	color: black;
+	height: 40px;
+	width: 30px;
+	line-height: 45px;
+	position: relative;
+	display: inline-block;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+	margin: 0 auto;
+}
+#twint .description-box {
+	width: 450px;
+	margin: 0 auto;
+}
+#twint .description-title {
+	color: #00d76e;
+	font-weight: bold;
+}
+#twint .description-icon {
+	background-repeat: no-repeat;
+	background-size: 32px 32px;
+	width: 32px;
+	height: 32px;
+	display: inline-block;
+	vertical-align: middle;
+	float: left;
+	left: 0;
+	top: 50%;
+	margin-top: -16px;
+	position: absolute;
+}
+#twint .icon-app {
+	background: url('images/icon_app.png');
+}
+#twint .icon-pay {
+	background: url('images/icon_pay.png');
+}
+#twint .icon-cam {
+	background: url('images/icon_cam.png');
+}
+#twint .description-item {
+	display: table-cell;
+	float: left;
+	vertical-align: middle;
+	position: relative;
+	min-height: 32px;
+	padding: 0 0 0 60px;
+	margin: 10px 0 10px 0 !important;
+	clear: both;
+	width: auto;
+}
+#twint .description-text {
+	text-indent: -1.1em;
+	margin-left: 1em;
+	vertical-align: middle;
+	padding-left: 20px;
+	height: 32px;
+	display: table-cell;
+}
+#twint a.button,
+#twint a.button:link,
+#twint a.button:visited {
+	display: inline-block;
+	padding: 15px 20px 10px 20px;
+	background: #00d76e;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0px;
+	font-size: 14px;
+	color: white;
+	text-decoration: none;
+	line-height: 14px;
+	cursor: pointer;
+	border: 0;
+	margin-left: 5px;
+	margin-right: 5px;
+	height: 15px;
+}
+#twint a.button:hover,
+#twint a.button:focus,
+#twint a.button:active {
+  background: #00d76e;
+  text-decoration: none;
+  color: rgb(89,89,89);
+}
+#twint a.button.back-button {
+	background-image: url('images/arrow_back_white.png');
+	background-repeat: no-repeat;
+	background-position: 5px center;
+}
+#twint a.button.info-button {
+	background-image: url('images/info_icon_white.png');
+	background-repeat: no-repeat;
+	background-position: 5px center;
+}
+/* ------------------------------------------------------------------------ */
+/* Responsive design styles */
+/* ------------------------------------------------------------------------ */
+@media only screen and (max-width: 767px) {
+#twint .nav-mobile {
+	display: block;
+	height: 150px;
+	background: #ffffff;
+	border: none;
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	-ms-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+}
+#twint .header-mobile {
+	display: block;
+	height: 125px;
+	background: #ffffff;
+}
+#twint .nav,
+#twint .header,
+#twint .credential-qrcode,
+#twint .credential-txt {
+	display: none;
+}
+#twint .credentials {
+	height: 175px;
+}
+#twint .credentials-box {
+	position: relative;
+	padding: 10px 10px 0px 10px;
+}
+#twint .credentials-item {
+	height: 110px;
+}
+#twint .description-box {
+	width: 300px;
+}
+#twint .value {
+	font-size: 28px;
+	line-height: 28px;
+	margin-top: 30px;
+}
+}
+
+/* ------------------------------------------------------------------------ */
+/* Retina optimization styles */
+/* ------------------------------------------------------------------------ */
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
+#twint .info-icon {
+	background: url('images/info_icon@2x.png');
+	background-repeat: no-repeat;
+	background-size: 15px 15px;
+}
+#twint .datatrans-logo {
+	background: url('images/datatrans_logo@2x.png');
+	background-repeat: no-repeat;
+	background-size: 100px 24px;
+}
+#twint .twint-logo {
+	background: url('images/twint_logo@2x.png');
+	background-repeat: no-repeat;
+	background-size: 80px 129px;
+}
+#twint .postfinance-logo {
+	background: url('images/pf_logo@2x.png');
+	background-repeat: no-repeat;
+	background-size: 80px 36px;
+}
+#twint .icon-app {
+	background: url('images/icon_app@2x.png');
+	background-repeat: no-repeat;
+	background-size: 32px 32px;
+}
+#twint .icon-pay {
+	background: url('images/icon_pay@2x.png');
+	background-repeat: no-repeat;
+	background-size: 32px 32px;
+}
+#twint .icon-cam {
+	background: url('images/icon_cam@2x.png');
+	background-repeat: no-repeat;
+	background-size: 32px 32px;
+}
+}
+}

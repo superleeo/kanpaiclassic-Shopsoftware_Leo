@@ -1,0 +1,6 @@
+AuthType Basic 
+AuthUserFile /dev/null
+AuthName "No Access" 
+order deny,allow
+allow from 127.0.0.1
+ErrorDocument 403 "<h1>Zugriff gesperrt</h1>"

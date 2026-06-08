@@ -1,0 +1,67 @@
+.bg_header { background-color:rgba(255,255,255,1.00); }
+.bg_aussen { background-color:rgba(238,238,238,1.00); }
+.bg_footer { background-color:rgba(51,51,51,1.00); }
+.bg_innen { background-color:rgba(255,255,255,0.90); }
+.bg_innen_no_trans { background-color:#ffffff; }
+.bg_flaechen { background-color:rgba(246,246,246,1.00); }
+.bg_button_only_hover:hover { background-color:#d4d4d4; }
+.bg_artikelbild { background-color:#ffffff; }
+.bg_preise { background-color:rgba(246,246,246,1.00); }
+.menuleiste { background-color:rgba(255,255,255,1.00); }
+.horiz_kat { background-color:rgba(246,246,246,1.00); }
+.bg_horiz_kat { background-color:rgba(246,246,246,1.00); }
+.tooltip.top .tooltip-arrow { border-top-color:rgba(246,246,246,1.00) !important; }
+.tooltip-inner { background-color:rgba(246,246,246,1.00) !important; }
+.horiz_aktiv { background-color:rgba(221,221,221,1.00); }
+.horiz_aktiv { background-color:#dddddd !important; }
+.vertikal_kat { background-color:rgba(255,255,255,0.00); }
+.unter_kat { background-color:rgba(238,238,238,1.00); }
+.bg_responsive { background-color:#eeeeee; background-image:linear-gradient(#ffffff 0%, #eeeeee 100%);}
+.over_kat { background-color:rgba(221,221,221,1.00); }
+.vertikal_kat:hover { background-color:rgba(221,221,221,1.00) !important; }
+.horiz_kat:hover { background-color:rgba(221,221,221,1.00) !important; }
+.unter_kat:hover { background-color:rgba(221,221,221,1.00) !important; }
+.kat_active { background-color:rgba(221,221,221,1.00) !important; }
+.sub_kat:hover { background-color:rgba(221,221,221,1.00) !important; }
+.bg_button { background-color:#222222; }
+.bg_button_no { background-color:#222222; }
+.wert_selected { background-color:#222222 !important; }
+#detail_info .is_selected { background-color:#222222 !important; }
+.button_ovr { background-color:#882222; }
+.bg_button:hover { background-color:#882222; }
+.menu_oben { color:#333333; }
+.menu_oben a { color:#333333; }
+.over_oben { color:#000000; }
+.menu_oben:hover { color:#000000; }
+.menu_oben:hover span { color:#000000; }
+#menu2 a:hover { color:#000000; }
+#menu2 span:hover { color:#000000; }
+.menu_unten { color:#ffffff; }
+.menu_unten a { color:#ffffff; }
+.menu_unten_text { color:#ffffff; }
+.over_unten { color:#ffffff; }
+.menu_unten:hover { color:#ffffff; }
+#menu3 a:hover { color:#ffffff; }
+.horiz_kat_c { color:#333333; }
+.tooltip-inner { color:#333333 !important; font-weight:bold;}
+.horiz_kat_c_ovr { color:#333333; }
+.horiz_aktiv { color:#333333 !important; }
+.horiz_kat_c.active { color:#333333 !important; }
+.horiz_kat_c.selected { color:#333333 !important; }
+.haupt_kat_c { color:#333333; }
+.unter_kat_c { color:#333333 !important; }
+.haupt_kat_c_ovr { color:#333333; }
+div.horiz_kat_c:hover { color:#333333 !important; }
+div.haupt_kat_c:hover { color:#333333 !important; }
+div.unter_kat_c:hover { color:#333333 !important; }
+.ueberschrift { color:#555555; }
+.fliesstext { color:#555555; }
+a { color:#555555; text-decoration:none; }
+hr.line_top { border-top-color:#555555 !important; }
+hr.line_bottom { border-top-color:#555555 !important; }
+.text_bold { color:#555555; }
+.artikelname { color:#555555; }
+.angebot { color:#555555; }
+.info { color:#555555; }
+.text_formular { color:#333333; }
+.col_button { color:#ffffff; }

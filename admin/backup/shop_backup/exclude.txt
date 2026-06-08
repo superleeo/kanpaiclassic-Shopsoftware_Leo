@@ -1,0 +1,12 @@
+*tar.gz
+*tar.bz2
+*.sql.gz
+*.sql.bz2
+* /Doku
+* /!privat
+* /.svn
+*Kopie*
+* /xtra_kein_shop
+*.project
+*.buildpath
+*alt*

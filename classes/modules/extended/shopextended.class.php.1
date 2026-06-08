@@ -1,0 +1,668 @@
+<?php
+/*
+###################################################################################
+  FLOW Shopssoftware Entwicklungsstand: 09.02.2020 Version 2
+
+  RoyalArt - Agentur für Softwaregestaltung
+  https://www.royalart.de
+  https://www.shopsoftware.com
+
+  c Copyright by Dipl. Des. FH Sven Scholz - RoyalArt Agentur
+
+
+  Copyrightvermerke duerfen NICHT entfernt werden!
+
+  ------------------------------------------------------------------------
+  Dieses Programm ist eine Software von Dipl. Des. FH Sven Scholz, RoyalArt Agentur.
+  Diese Software/Website ist eine Einzelplatzlizenz und für den Betrieb auf einem Speicherplatz 1 Installation berechtigt.
+  Die Veroeffentlichung dieses Programms erfolgt OHNE IRGENDEINE GARANTIE, sogar ohne
+  die implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT FUER EINEN BESTIMMTEN ZWECK.
+  Diese Script darf nicht veroeffentlicht oder weitergeben werden. Es gilt das Urheberrecht.
+  Diese Software darf nur mit schritflicher Genehmigung modifizieren werden.
+  Es gelten die Ihnen mitgeteilten Lizenzbestimmungen.
+  ------------------------------------------------------------------------
+  Bei Verstoß gegen die Lizenzbedingungen kann die Lizenz jederzeit entzogen werden. Der Kaufpreises wird nicht erstattet.
+  Wer gegen die Lizenzbedingungen verstoesst insbesondere bei illegalem Vertrieb oder Mehrfachnutzung des Scriptes  muss mit einer Vertragsstrafe von 50.000 Euro je Einzeldelikt rechnen!
+
+##################################################################################
+  Copyrightvermerke duerfen NICHT entfernt werden!
+*/
+
+namespace SHOPSOFTWARE;
+
+if (!defined('SHOPSOFTWARE')) {
+   die ("This file connot run outside the FLOW&reg; Shopsoftware");
+}
+
+if (!defined('SHOPSOFTWARE')) {
+   die ("This file connot run outside the FLOW&reg; Shopsoftware");
+}
+
+class SHOPSOFTWARE_shopExtended
+{
+   private $db;
+   private $params;
+//   private $text;
+   private $lang            = 'deu';
+   private $mode            = '';
+
+   public $carussell_active = false;
+   public $carussell_reload = '';
+   public $carussell_pos    = '';
+   public $carussell_html   = '';
+   public $carussell_script = '';
+   public $carussell_h      = 0;
+   public $carussell_w      = 0;
+
+   public $accordion_active = false;
+   public $accordion_reload = '';
+   public $accordion_pos    = '';
+   public $accordion_html   = '';
+   public $accordion_script = '';
+   public $accordion_h      = 0;
+   public $accordion_w      = 0;
+
+   public $slider_active    = false;
+   public $slider_reload    = '';
+   public $slider_pos       = '';
+   public $slider_html      = '';
+   public $slider_script    = '';
+   public $slider_h      = 0;
+   public $slider_w      = 0;
+
+
+   function __construct($mode = '') {
+      $this->db     = Control::getDB();
+      $this->params = Control::getParams();
+      $this->text   = Control::getText();
+      $this->lang   = $_SESSION['lang'];
+      $this->mode   = $this->params->html5_mode;
+      $this->renderCarussell();
+      $this->renderAccordion();
+      $this->renderSlider();
+   }
+
+
+   public function renderCarussell() {
+      $carussell_conf = null;
+      $carussell      = array();
+      $device         = (isset($_SESSION['device']) ? $_SESSION['device'] : '');
+      $conf           = $this->db->querySingleObject("SELECT data FROM #__pro WHERE typ = 'carussell_conf'");
+
+      if (is_object($conf)) {
+         $carussell_conf = json_decode($conf->data);
+      }
+      else {
+         return;
+      }
+
+      $active_desktop = 'n';
+      $active_tablet  = 'n';
+      $active_mobile  = 'n';
+
+      if (isset($carussell_conf->active_desktop)) {
+         $active_desktop = $carussell_conf->active_desktop;
+         $active_tablet  = $carussell_conf->active_tablet;
+         $active_mobile  = $carussell_conf->active_mobile;
+      }
+      else {
+         $active_desktop = $carussell_conf->active;
+         $active_tablet  = $carussell_conf->active;
+         $active_mobile  = $carussell_conf->active;
+      }
+
+      if ($active_desktop == 'y' && $device == 'desktop'
+          || $active_tablet == 'y' && $device == 'tablet'
+          || $active_mobile == 'y' && $device == 'mobile'
+          || $active_desktop == 'y' && $active_tablet == 'y' && $active_mobile == 'y' ) {
+         $this->carussell_active = true;
+         $this->carussell_pos = $carussell_conf->position;
+      }
+      else if ($active_desktop == 'y' || $active_tablet == 'y' || $active_mobile == 'y') {
+         $this->carussell_reload = $carussell_conf->position;
+         return;
+      }
+      else {
+         return;
+      }
+
+      $images = $this->db->queryAllObjects("SELECT data, sort FROM #__pro WHERE typ = 'carussell_img' AND lang = '$this->lang' ORDER BY sort");
+      if (!is_array($images) || count($images) == 0) {
+         return '';
+      }
+
+      $counter = 0;
+      foreach ($images as $k => $v) {
+         $data = json_decode($v->data);
+         if ($data->image == '' || !file_exists(TEMPLATE_PATH.'/images/'.$data->image)) {
+            continue;
+         }
+
+         $carussell[$counter] = new \stdClass();
+         $carussell[$counter]->image = TEMPLATE_URL.'/images/'.$data->image;
+         $carussell[$counter]->link = $data->link;
+         $carussell[$counter]->intern = $data->intern;
+         $carussell[$counter]->tooltip = $data->tooltip;
+         $counter++;
+      }
+
+      $width  = EXT_CAR_T_WIDTH;
+      $height = EXT_CAR_T_HEIGHT;
+      $position_x = EXT_CAR_T_POSITION_X;
+      $position_y = EXT_CAR_T_POSITION_Y;
+      $frames = EXT_CAR_T_FRAMES;
+      $perspective = EXT_CAR_T_PERSPECTIVE;
+      $background_img = (file_exists(TEMPLATE_PATH.'/images/system/karussell_breit.jpg') ? TEMPLATE_URL.'/images/system/karussell_breit.jpg' : '');
+
+      if ($carussell_conf->position == 'center' && $this->params->firma['startseite_breite'] != 'breit') {
+         $width  = EXT_CAR_C_WIDTH;
+         $height = EXT_CAR_C_HEIGHT;
+         $position_x = EXT_CAR_C_POSITION_X;
+         $position_y = EXT_CAR_C_POSITION_Y;
+         $frames = EXT_CAR_C_FRAMES;
+         $perspective = EXT_CAR_C_PERSPECTIVE;
+         $background_img = (file_exists(TEMPLATE_PATH.'/images/system/karussell_mitte.jpg') ? TEMPLATE_URL.'/images/system/karussell_mitte.jpg' : '');
+      }
+
+      if ($carussell_conf->position == 'center' && $this->params->firma['startseite_breite'] == 'breit') {
+         $height = EXT_CAR_C_HEIGHT_COLLAGE;
+         $background_img = (file_exists(TEMPLATE_PATH.'/images/system/karussell_mitte.jpg') ? TEMPLATE_URL.'/images/system/karussell_collage.jpg' : '');
+      }
+
+      if ($carussell_conf->position == 'bottom') {
+         $width  = EXT_CAR_B_WIDTH;
+         $height = EXT_CAR_B_HEIGHT;
+         $position_x = EXT_CAR_B_POSITION_X;
+         $position_y = EXT_CAR_B_POSITION_Y;
+         $frames = EXT_CAR_B_FRAMES;
+         $perspective = EXT_CAR_B_PERSPECTIVE;
+         // $background_img = (file_exists(TEMPLATE_PATH.'/images/system/karussell_breit.jpg') ? TEMPLATE_URL.'/images/system/karussell_breit.jpg' : '');
+      }
+
+      if (defined('CONF_RESPONSIVE') && isset($this->params->firma['max_width'])) {
+         $add = 0;
+
+         if ($carussell_conf->position == 'bottom' || $carussell_conf->position == 'top') {
+            $add = WIDTH_ADD;
+         }
+
+         $width = ($this->params->firma['max_width'] + $add);
+      }
+
+      $this->carussell_h = $height;
+      $this->carussell_w = $width;
+
+
+      $html  ='<style>'.CR;
+      if ($this->mode == 'iframe') {
+         $html .= '* { border:0; padding:0; margin:0; }';
+      }
+//      $html .='#karussell { height: '.$height.'px; position: relative; }'.CR;
+      $html .='#karussell { width:100%; height: '.$height.'px; position: relative; }'.CR;
+      $html .='#canvas { background-color:transparent; }'.CR;
+//      $html .='#canvasWrapper { background-color:transparent; width: '.$width.'px; height: '.$height.'px; position: relative; '.($background_img != '' ? "background-image:url($background_img); " : '').' '.($carussell_conf->position == 'center' ? '' : 'margin:auto').'; }'.CR;
+      $html .='#canvasWrapper { background-color:transparent; width:100%; height: '.$height.'px; position: relative; '.($background_img != '' ? "background-image:url($background_img); " : '').' '.($carussell_conf->position == 'center' ? '' : 'margin:auto').'; }'.CR;
+      $html .='#preloader { width: 30px; height: 30px; position: absolute; top:50%; left:50%; margin-left: -15px; margin-top: -15px; padding: 5px; background-color: #FFF; border-radius: 5px; }'.CR;
+      $html .='div#tooltip{ text-align: center; font-size: 12px; font-family: "Arial"; display: none; padding-top: 6px; position: absolute; text-indent: 5px; width: 250px; height: 35px; background: url('.TEMPLATE_URL.'/images/system/tooltip_karussell.png) no-repeat; }'.CR;
+      $html .='.mouseOut { cursor: default; }'.CR;
+      $html .='.mouseOver { cursor: pointer; }'.CR;
+      $html .='#myImages { display: none; }'.CR;
+      $html .='</style>'.CR;
+
+      $html .='<div id="karussell">'.CR;
+      $html .='   <div id="canvasWrapper">'.CR;
+      $html .='      <canvas id="canvas" height="'.$height.'" width="'.$width.'" data-responsive="">'.CR;
+      $html .=          'Ihr Browser unterstützt das Canvas Element nicht!'.CR;
+      $html .='      </canvas>'.CR;
+      $html .='      <div id="preloader"><img src="'.TEMPLATE_URL.'/images/system/preloader.gif" alt="lade Inhalt" title="lade Inhalt" /></div>'.CR;
+      $html .='   </div>'.CR;
+      $html .='   <div id="myImages">'.CR;
+      $html .='      <div id="helperImages">'.CR;
+      $html .='         <img id="mask" src="'.TEMPLATE_URL.'/images/mask_carussell.png" alt="" />'.CR;
+      $html .='      </div>'.CR;
+      $html .='      <ul>'.CR;
+
+      for ($i = 0; $i < count($carussell); $i++) {
+         $data = $carussell[$i];
+
+         if ($data->link != '') {
+            $html .= '         <li style="cursor:pointer;"><a href="'.$data->link.'"  target="'.($data->intern == 'n' ? '_blank' : '_self').'"><img src="'.$data->image.'" alt="'.($data->tooltip != '' ? $data->tooltip : ' ').'" /></a></li>'.CR;
+         }
+         else {
+            $html .= '         <li><a class="nolink" href=""><img src="'.$data->image.'" alt="'.($data->tooltip != '' ? $data->tooltip : ' ').'" /></a></li>'.CR;
+         }
+      }
+
+      $html .= '      </ul>'.CR;
+      $html .='   </div>'.CR;
+      $html .='</div>'.CR;
+      $this->carussell_html = $html;
+
+      $script = '';
+
+      if ($this->mode == 'iframe') {
+         $script .='<script src="'.SHOP_URL.'/js/jquery3.min.js"></script>'.CR;
+      }
+
+      $script .='<script src="'.SHOP_URL.'/classes/modules/extended/karussell-1.0.min.js"></script>'.CR;
+      $script .='<script>'.CR;
+      $script .='$(window).on("load", function() {'.CR;
+      $script .='   var k = new Karussell({'.CR;
+      $script .='      frameRate              :   '.$frames.','.CR;
+      $script .='      radiusX                :   '.$carussell_conf->radius_x.','.CR;
+      $script .='      radiusY                :   '.$carussell_conf->radius_y.','.CR;
+      $script .='      perspective            :   '.$perspective.','.CR;
+      $script .='      carouselPos            :   {x : '.$position_x.', y: '.$position_y.'},'.CR;
+      $script .='      rotationSpeed          :   '.$carussell_conf->speed.','.CR;
+      $script .='      useAutoReflection      :   '.((int)$carussell_conf->mirror == 100 ? 'false' : 'true').','.CR;
+      $script .='      reflectionAlpha        :   '.(100-(int)$carussell_conf->mirror)/100;
+      $script .='   });'.CR;
+
+      if ($this->mode == 'iframe') {
+         $script .='parent.sameHeight();'.CR;
+      }
+
+      $script .='});'.CR;
+      $script .='</script>'.CR;
+      $this->carussell_script = $script;
+   }
+
+   public function renderAccordion() {
+      $accordion_conf = null;
+      $accordion      = array();
+      $hoehe          = 0;
+      $device         = (isset($_SESSION['device']) ? $_SESSION['device'] : '');
+      $conf           = $this->db->querySingleObject("SELECT data FROM #__pro WHERE typ = 'accordion_conf'");
+
+      if (is_object($conf)) {
+         $accordion_conf = json_decode($conf->data);
+      }
+      else {
+         return;
+      }
+
+      $active_desktop = 'n';
+      $active_tablet  = 'n';
+      $active_mobile  = 'n';
+
+      if (isset($accordion_conf->active_desktop)) {
+         $active_desktop = $accordion_conf->active_desktop;
+         $active_tablet  = $accordion_conf->active_tablet;
+         $active_mobile  = $accordion_conf->active_mobile;
+      }
+      else {
+         $active_desktop = $accordion_conf->active;
+         $active_tablet  = $accordion_conf->active;
+         $active_mobile  = $accordion_conf->active;
+      }
+
+      if ($active_desktop == 'y' && $device == 'desktop'
+          || $active_tablet == 'y' && $device == 'tablet'
+          || $active_mobile == 'y' && $device == 'mobile'
+          || $active_desktop == 'y' && $active_tablet == 'y' && $active_mobile == 'y' ) {
+         $this->accordion_active = true;
+         $this->accordion_pos = $accordion_conf->position;
+      }
+      else if ($active_desktop == 'y' || $active_tablet == 'y' || $active_mobile == 'y') {
+         $this->accordion_reload = $accordion_conf->position;
+         return;
+      }
+      else {
+         return;
+      }
+
+      // Galerie
+      if ($accordion_conf->galerie == 'g') {
+         $images = $this->db->queryAllObjects("SELECT data, sort FROM #__pro WHERE typ = 'accordion_img' AND lang = '$this->lang' ORDER BY sort");
+         if (!is_array($images) || count($images) == 0) {
+            return '';
+         }
+
+         $counter = 0;
+         foreach ($images as $k => $v) {
+            $data = json_decode($v->data);
+            if ($data->image == '' || !is_file(TEMPLATE_PATH.'/images/'.$data->image)) {
+               continue;
+            }
+
+            // Höhe 1. Bild auslesen
+            if ($counter == 0) {
+               list(,$hoehe) = getimagesize(TEMPLATE_PATH.'/images/'.$data->image);
+            }
+
+            $accordion[$counter] = new \stdClass();
+            $accordion[$counter]->image = TEMPLATE_URL.'/images/'.$data->image;
+            $accordion[$counter]->image_name = $data->image;
+            $accordion[$counter]->link = $data->link;
+            $accordion[$counter]->intern = $data->intern;
+            $counter++;
+         }
+      }
+
+      // HTML-Seiten
+      else {
+         $hoehe = $accordion_conf->a_hoehe;
+         $images = $this->db->queryAllObjects("SELECT data, sort FROM #__pro WHERE typ = 'accordion_html' AND lang = '$this->lang' ORDER BY sort");
+         if (count($images) == 0) {
+            return '';
+         }
+
+         $counter = 0;
+         foreach ($images as $k => $v) {
+            $data = json_decode($v->data);
+            if ($data->active != 'y') {
+               continue;
+            }
+
+            $accordion[$counter] = new \stdClass();
+            $accordion[$counter]->html = $data->text;
+            $accordion[$counter]->active = $data->active;
+            $accordion[$counter]->color = $data->color;
+            $counter++;
+         }
+      }
+
+      $html = '<style>'.CR;
+
+      if ($this->mode == 'iframe') {
+         $html .= '* { border:0; padding:0; margin:0; }';
+      }
+
+      $html .='#preloader { width: 30px; height: 30px; position: absolute; top:50%; left:50%; margin-left: -15px; margin-top: -15px; padding: 5px; background-color: #FFF; border-radius: 5px; }'.CR;
+      $html .= '</style>'.CR;
+
+      $counter = 0;
+      $breite = 0;
+      $htmla = '';
+
+      // Galerie Bilder einlesen
+      if ($accordion_conf->galerie == 'g') {
+
+         for ($i = 0; $i < count($accordion); $i++) {
+//            $gesamt = $accordion_conf->g_gesamt;
+            $data = $accordion[$i];
+            if ($i == 0) {
+               list($breite, $hoehe) = getimagesize(TEMPLATE_PATH.'/images/'.$data->image_name);
+            }
+            if ($data->link != '') {
+               $htmla .= '<div class="slide"><a href="'.$data->link.'" target="'.($data->intern == 'n' ? '_blank' : '_parent').'"><img src="'.$data->image.'" alt="" /></a></div>';
+            }
+            else {
+               $htmla .= '<div class="slide"><img src="'.$data->image.'" alt="" /></div>';
+            }
+            $counter++;
+         }
+      }
+
+      // HTML-Seiten einlesen
+      else {
+         $breite = (int)$accordion_conf->a_breite;
+         $hoehe  = (int)$accordion_conf->a_hoehe;
+         for ($i = 0; $i < count($accordion); $i++) {
+            $data = $accordion[$i];
+            $htmla .= '<div class="slide" style="background-color:'.$data->color.';">'.$data->html.'</div>';
+            $counter++;
+         }
+      }
+
+      $gesamt = CONF_BANNERBREITE;
+
+      if (defined('CONF_RESPONSIVE') && isset($this->params->firma['max_width'])) {
+         $add = 0;
+
+         if ($accordion_conf->position == 'bottom' || $accordion_conf->position == 'top') {
+            $add = WIDTH_ADD;
+         }
+
+         $gesamt = ($this->params->firma['max_width'] + $add);
+      }
+
+      else if ($accordion_conf->position == 'center' && $this->params->firma['startseite_breite'] == 'kategorien') {
+         $gesamt = CONF_BANNERBREITE - (CONF_THUMB_X + 3 * 18); // Breite Ränder
+      }
+
+      $gesamt_script = $gesamt + $counter +1;
+      $this->accordion_h = $hoehe + 2;
+      $this->accordion_w = $gesamt + 5;
+
+//      $html .= '<div id="accordion" data-responsive="" style="position:relative; width: '.($gesamt - 1).'px; height:'.($hoehe + 2).'px; overflow:hidden; border-right:1px solid '.EXT_ACC_BORDER_COLOR.';">'.CR;
+      $html .= '<div id="accordion" data-responsive="" style="position:relative; width:99.9%; height:'.($hoehe + 2).'px; overflow:hidden; border-right:1px solid '.EXT_ACC_BORDER_COLOR.';">'.CR;
+//      $html .= '<div id="slides" style="position:relative; margin:auto; display: none; width: '.($gesamt + 15).'px; height:'.($hoehe + 2).'px;">'.CR;
+      $html .= '<div id="slides" style="position:relative; margin:auto; '.($this->mode != 'iframe' ? 'display: none;' : '').' width:103%; height:'.($hoehe + 2).'px;">'.CR;
+      $html .= $htmla;
+      $html .='</div>'.CR;
+      $html .='</div>'.CR;
+      $this->accordion_html = $html;
+
+      $script = '';
+
+      if ($this->mode == 'iframe') {
+         $script .='<script src="'.SHOP_URL.'/js/jquery3.min.js"></script>'.CR;
+      }
+
+      $script .='<script src="'.SHOP_URL.'/classes/modules/extended/TweenMax.min.js"></script>'.CR;
+      $script .='<script src="'.SHOP_URL.'/classes/modules/extended/accordion-1.0.min_mod.js"></script>'.CR;
+      $script .='<script>'.CR;
+      $script .='$(window).on("load", function() {'.CR;
+      $script .='   var s = new Accordion({'.CR;
+      $script .='      widthTotal     : '.((int)$gesamt_script-($counter+2)).','.CR;
+      $script .='      widthOpened    : '.$breite.','.CR;
+      $script .='      height         : '.$hoehe.','.CR;
+      $script .='      openAtStart    : 0,'.CR;
+      $script .='      animation      : {changeOnClick:'.($accordion_conf->mouseover == 'm' ? 'true' : 'false').','.CR;
+      $script .='      duration       : '.(float)str_replace(',', '.', $accordion_conf->dauer).','.CR;
+      $script .='      ease           :'.EXT_ACC_POWER.'.'.EXT_ACC_EASE.'},'.CR;
+      $script .='      border         : {width:1, color:"'.EXT_ACC_BORDER_COLOR.'", type:"solid"},'.CR;
+      $script .='      shadowInactive : {hPos:0, vPos:0, blur:0, color:"#666666"},'.CR;
+      $script .='      shadowActive   : {hPos:0, vPos:0, blur:0, color:"#666666"},'.CR;
+      $script .='      nextImageIn    : '.(int)$accordion_conf->wechsel.''.CR;
+      $script .='   });'.CR;
+      $script .='         var w = $("#accordion").width();'.CR;
+      $script .='   if (widthClosed > 0) {'.CR;
+      $script .='      var opened = widthOpened;'.CR;
+      $script .='      var anzahl = $("#accordion .slide").length;'.CR;
+//      $script .='      $("#slides").width(w);'.CR;
+      $script .='      widthTotal = w;'.CR;
+//      $script .='      widthClosed = Math.floor((w - opened - anzahl + 1) / (anzahl - 1) - 2);'.CR;
+      $script .='   };'.CR;
+
+      if ($this->mode == 'iframe') {
+         $script .='parent.sameHeight();'.CR;
+      }
+
+      $script .='});'.CR;
+      $script .='</script>'.CR;
+      $this->accordion_script = $script;
+   }
+
+   public function renderSlider() {
+      $slider_conf = null;
+      $slider      = array();
+      $device      = (isset($_SESSION['device']) ? $_SESSION['device'] : '');
+      $conf        = $this->db->querySingleObject("SELECT data FROM #__pro WHERE typ = 'slider_conf'");
+      $dir         = TEMPLATE_PATH.'/images/';
+
+      if (is_object($conf)) {
+         $slider_conf = json_decode($conf->data);
+      }
+      else {
+         return;
+      }
+
+      $active_desktop = 'n';
+      $active_tablet  = 'n';
+      $active_mobile  = 'n';
+
+      if (isset($slider_conf->active_desktop)) {
+         $active_desktop = $slider_conf->active_desktop;
+         $active_tablet  = $slider_conf->active_tablet;
+         $active_mobile  = $slider_conf->active_mobile;
+      }
+      else {
+         $active_desktop = $slider_conf->active;
+         $active_tablet  = $slider_conf->active;
+         $active_mobile  = $slider_conf->active;
+      }
+
+      if ($active_desktop == 'y' && $device == 'desktop'
+          || $active_tablet == 'y' && $device == 'tablet'
+          || $active_mobile == 'y' && $device == 'mobile'
+          || $active_desktop == 'y' && $active_tablet == 'y' && $active_mobile == 'y' ) {
+         $this->slider_active = true;
+         $this->slider_pos = $slider_conf->position;
+      }
+      else if ($active_desktop == 'y' || $active_tablet == 'y' || $active_mobile == 'y') {
+         $this->slider_reload = $slider_conf->position;
+         return;
+      }
+      else {
+         return;
+      }
+
+      $width     = EXT_SLI_T_WIDTH;
+      $height    = EXT_CAR_T_HEIGHT;
+      $tooltip_x = EXT_SLI_T_TOOLTIP_X;
+      $tooltip_y = EXT_SLI_T_TOOLTIP_Y;
+      $frames    = EXT_SLI_T_FRAMES;
+      $slider_y  = EXT_SLI_T_SLIDER_Y;
+
+      if ($slider_conf->position == 'center' && $this->params->firma['startseite_breite'] != 'breit') {
+         $width     = EXT_SLI_C_WIDTH;
+         $height    = EXT_SLI_C_HEIGHT;
+         $tooltip_x = EXT_SLI_C_TOOLTIP_X;
+         $tooltip_y = EXT_SLI_C_TOOLTIP_Y;
+         $frames    = EXT_SLI_C_FRAMES;
+         $slider_y  = EXT_SLI_C_SLIDER_Y;
+      }
+
+      if ($slider_conf->position == 'center' && $this->params->firma['startseite_breite'] == 'breit') {
+         $height = EXT_SLI_C_HEIGHT_COLLAGE;
+      }
+
+      if ($slider_conf->position == 'bottom') {
+         $width     = EXT_SLI_B_WIDTH;
+         $height    = EXT_SLI_B_HEIGHT;
+         $tooltip_x = EXT_SLI_B_TOOLTIP_X;
+         $tooltip_y = EXT_SLI_B_TOOLTIP_Y;
+         $frames    = EXT_SLI_B_FRAMES;
+         $slider_y  = EXT_SLI_B_SLIDER_Y;
+      }
+
+      if (defined('CONF_RESPONSIVE') && isset($this->params->firma['max_width'])) {
+         $add = 0;
+
+         if ($slider_conf->position == 'bottom' || $slider_conf->position == 'top') {
+            $add = WIDTH_ADD;
+         }
+
+         $width = ($this->params->firma['max_width'] + $add);
+      }
+
+      $images = $this->db->queryAllObjects("SELECT data, sort FROM #__pro WHERE typ = 'slider_img' AND lang = '$this->lang' ORDER BY sort");
+      if (!is_array($images) || count($images) == 0) {
+         return;
+      }
+
+      $counter = 0;
+      $width_sum = 0;
+
+      foreach ($images as $k => $v) {
+         $data = json_decode($v->data);
+
+         if ($data->image == '' || !file_exists(TEMPLATE_PATH.'/images/'.$data->image)) {
+            continue;
+         }
+
+         $slider[$counter]          = new \stdClass();
+         $slider[$counter]->image   = TEMPLATE_URL.'/images/'.$data->image;
+         $slider[$counter]->link    = $data->link;
+         $slider[$counter]->intern  = $data->intern;
+         $slider[$counter]->tooltip = $data->tooltip;
+         $counter++;
+
+         list($b) = getimagesize(TEMPLATE_PATH.'/images/'.$data->image);
+         $width_sum += $b;
+      }
+
+      // $width = min($width, $width_sum);
+
+      $this->slider_h = $height;
+      $this->slider_w = $width;
+
+      $html  ='<style>'.CR;
+
+      if ($this->mode == 'iframe') {
+         $html .= '* { border:0; padding:0; margin:0; }';
+      }
+
+      $html .='#slider { height:'.$height.'px; width:100%; position: relative; }'.CR;
+      $html .='#canvas_Slider { background-color:transparent; }'.CR;
+      $html .='#canvasWrapper_Slider {  background-color:transparent; width:100%; height:'.$height.'px; position: relative; margin:auto; }'.CR;
+      $html .='#preloader_Slider { width: 30px; height: 30px; position: absolute; top:50%; left:50%; margin-left: -15px; margin-top: -15px; padding: 5px; background-color: #FFF; border-radius: 5px; }'.CR;
+      $html .='div#tooltip_Slider { text-align: center; font-size: 12px; font-family: "Arial"; display: none; padding-top: 6px; position: absolute; text-indent: 5px; width: 250px; height: 35px; background: url('.TEMPLATE_URL.'/images/system/tooltip_slider.png) no-repeat; }'.CR;
+      $html .='.mouseOut { cursor: default; }'.CR;
+      $html .='.mouseOver { cursor: pointer; }'.CR;
+      $html .='#myImages_Slider { display: none; }'.CR;
+      $html .='</style>'.CR;
+
+      $html .='<div id="slider">'.CR;
+      $html .='   <div id="canvasWrapper_Slider">'.CR;
+      $html .='      <canvas id="canvas_Slider" height="'.$height.'" width="'.$width.'" data-responsive="">'.CR;
+      $html .=          'Ihr Browser unterstützt das Canvas Element nicht!'.CR;
+      $html .='      </canvas>'.CR;
+      $html .='      <div id="preloader_Slider"><img src="'.TEMPLATE_URL.'/images/system/preloader.gif" alt="lade Inhalt" title="lade Inhalt" /></div>'.CR;
+      $html .='   </div>'.CR;
+      $html .='   <div id="myImages_Slider" style="display:none">'.CR;
+      $html .='      <div id="helperImages_Slider">'.CR;
+      $html .='         <img id="mask_Slider" src="'.TEMPLATE_URL.'/images/mask_slider.png" alt="" />'.CR;
+      $html .='      </div>'.CR;
+      $html .='      <ul>'.CR;
+
+      for ($i = 0; $i < count($slider); $i++) {
+         $data = $slider[$i];
+         if ($data->link != '') {
+            $html .= '         <li><a href="'.$data->link.'" target="'.($data->intern == 'n' ? '_blank' : '_self').'"><img src="'.$data->image.'" alt="'.($data->tooltip != '' ? $data->tooltip : ' ').'" /></a></li>'.CR;
+         }
+         else {
+            $html .= '         <li><a class="nolink" href="" target="_self"><img src="'.$data->image.'" alt="'.($data->tooltip != '' ? $data->tooltip : ' ').'" /></a></li>'.CR;
+         }
+      }
+
+      $html .= '      </ul>'.CR;
+      $html .='   </div>'.CR;
+      $html .='</div>'.CR;
+      $this->slider_html = $html;
+
+      $script = '';
+
+      if ($this->mode == 'iframe') {
+         $script .='<script src="'.SHOP_URL.'/js/jquery3.min.js"></script>'.CR;
+      }
+
+      $script .='<script src="'.SHOP_URL.'/classes/modules/extended/imageslider-1.0.min_mod.js"></script>'.CR;
+
+
+      $script .='<script>'.CR;
+      $script .='// test'.CR;
+      $script .='$(window).on("load", function() {'.CR;
+      $script .='   var i = new Imageslider({'.CR;
+      $script .='      frameRate_Slider         :   '.$frames.','.CR;
+//      $script .='      itemOffset               :   '.$slider_conf->itemOffset.','.CR;
+      $script .='      itemOffset               :   20,'.CR;
+      $script .='      startEndDistance         :   '.$slider_conf->startEndDistance.','.CR;
+      $script .='      tooltipPos_Slider        :   {x: '.$tooltip_x.', y: '.$tooltip_y.'},'.CR;
+      $script .='      sliderPosY               :   '.$slider_y.','.CR;
+      $script .='      speedLimiter             :   '.$slider_conf->speedLimiter.','.CR;
+      $script .='      useAutoReflection_Slider :   '.((int)$slider_conf->reflectionAlpha >= 100 ? 'false' : 'true').','.CR;
+      $script .='      reflectionAlpha_Slider   :   '.(1 - (int)$slider_conf->reflectionAlpha / 100).CR;
+      $script .='   })'.CR;
+
+      if ($this->mode == 'iframe') {
+         $script .='parent.sameHeight();'.CR;
+      }
+
+      $script .='});'.CR;
+      $script .='</script>'.CR;
+      $this->slider_script = $script;
+   }
+}

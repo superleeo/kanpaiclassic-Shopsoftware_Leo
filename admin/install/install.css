@@ -1,0 +1,172 @@
+/*
+###################################################################################
+  KANPAI CLASSIC Shopsoftware - Entwicklungsstand 06.2025
+
+  Kanpai Classic - Web Development
+  https://www.kanpaiclassic.com
+  https://www.kanpaiclassic.com
+
+  c Copyright by Kanpai Classic - Kanpai Classic Web Development
+
+
+  Copyrightvermerke duerfen NICHT entfernt werden!
+
+  ------------------------------------------------------------------------
+  Dieses Programm ist eine Software von Kanpai Classic Web Development.
+  Diese Software/Website ist eine Einzelplatzlizenz und für den Betrieb auf einem Speicherplatz 1 Installation berechtigt.
+  Die Veroeffentlichung dieses Programms erfolgt OHNE IRGENDEINE GARANTIE, sogar ohne
+  die implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT FUER EINEN BESTIMMTEN ZWECK.
+  Diese Script darf nicht veroeffentlicht oder weitergeben werden. Es gilt das Urheberrecht.
+  Diese Software darf nur mit schritflicher Genehmigung modifizieren werden.
+  Es gelten die Ihnen mitgeteilten Lizenzbestimmungen.
+  ------------------------------------------------------------------------
+  Bei Verstoß gegen die Lizenzbedingungen kann die Lizenz jederzeit entzogen werden. Der Kaufpreises wird nicht erstattet.
+  Wer gegen die Lizenzbedingungen verstoesst insbesondere bei illegalem Vertrieb oder Mehrfachnutzung des Scriptes  muss mit einer Vertragsstrafe von 50.000 Euro je Einzeldelikt rechnen!
+
+##################################################################################
+  Copyrightvermerke duerfen NICHT entfernt werden!
+*/
+* {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, sans-serif;
+	color: #555555;
+}
+
+body {
+	background-color: #dddddd;
+}
+
+#seite {
+	position: absolute;
+	display: table;
+	height: 100%;
+	width: 100%;
+}
+
+#seite2 {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+#rahmen {
+	position: relative;
+	margin: 0 auto;
+	width: 320px;
+	border: 1px solid #000000;
+	background-color: #ffffff;
+}
+
+#rahmen-innen {
+	margin: 14px;
+	padding: 20px;
+	background-color: #f0f0f0;
+}
+
+h1 {
+	font-size: 14px;
+	font-weight: bold;
+	margin: -4px 0 12px;
+}
+
+h2 {
+	font-size: 11px;
+	font-weight: bold;
+	margin-bottom: 6px;
+}
+
+p {
+	min-height: 14px;
+	font-size: 11px;
+	line-height: 14px;
+	clear: both;
+	margin-bottom: 6px;
+}
+
+span,br {
+	font-size: 11px;
+}
+
+ul {
+	padding: 0 0 0 20px;
+	font-size: 11px;
+}
+
+div {
+	font-size: 10px;
+}
+
+.error {
+	color: #e00000;
+}
+
+.no-error {
+	color: #000000;
+}
+
+form p {
+	padding-top: 6px;
+}
+
+label {
+	display: block;
+	float: left;
+	width: 77px;
+	font-weight: bold;
+	letter-spacing: -1px;
+	padding-top: 3px;
+}
+
+input[type='text'] {
+	display: block;
+	width: 171px;
+	height: 16px;
+	padding: 1px;
+	float: left;
+	border: 1px solid #bcbcbc;
+	font-size: 11px;
+}
+
+input[type='submit'] {
+	display: block;
+	position: absolute;
+	width: 100px;
+	height: 20px;
+	text-align: center;
+	font-size: 11px;
+	font-weight: bold;
+	border: 2px solid #bbbbbb;
+	background-color: #f0f0f0;
+}
+
+.button {
+	position: relative;
+	border: 1px solid #5f5f5f;
+	margin: 15px auto 0;
+	width: 100px;
+	clear: both;
+	height: 20px;
+}
+
+.button2 {
+	position: relative;
+	border: 1px solid #5f5f5f;
+	margin: 20px 0 0 78px;
+	width: 100px;
+	height: 20px;
+	clear: both;
+}
+
+#ie7 {
+	width: 100%;
+	height: 100%;
+	vertical-align: middle;
+}
+
+#ie7 tr {
+	vertical-align: middle;
+}
+
+#ie7 td {
+	vertical-align: middle;
+}

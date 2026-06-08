@@ -1,0 +1,137 @@
+/*
+###################################################################################
+  KANPAI CLASSIC Shopsoftware - Entwicklungsstand 06.2025
+
+  Kanpai Classic - Web Development
+  https://www.kanpaiclassic.com
+  https://www.kanpaiclassic.com
+
+  c Copyright by Kanpai Classic - Kanpai Classic Web Development
+
+
+  Copyrightvermerke duerfen NICHT entfernt werden!
+
+  ------------------------------------------------------------------------
+  Dieses Programm ist eine Software von Kanpai Classic Web Development.
+  Diese Software/Website ist eine Einzelplatzlizenz und für den Betrieb auf einem Speicherplatz 1 Installation berechtigt.
+  Die Veroeffentlichung dieses Programms erfolgt OHNE IRGENDEINE GARANTIE, sogar ohne
+  die implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT FUER EINEN BESTIMMTEN ZWECK.
+  Diese Script darf nicht veroeffentlicht oder weitergeben werden. Es gilt das Urheberrecht.
+  Diese Software darf nur mit schritflicher Genehmigung modifizieren werden.
+  Es gelten die Ihnen mitgeteilten Lizenzbestimmungen.
+  ------------------------------------------------------------------------
+  Bei Verstoß gegen die Lizenzbedingungen kann die Lizenz jederzeit entzogen werden. Der Kaufpreises wird nicht erstattet.
+  Wer gegen die Lizenzbedingungen verstoesst insbesondere bei illegalem Vertrieb oder Mehrfachnutzung des Scriptes  muss mit einer Vertragsstrafe von 50.000 Euro je Einzeldelikt rechnen!
+
+##################################################################################
+  Copyrightvermerke duerfen NICHT entfernt werden!
+*/
+
+#mod_sortierung { margin-right:0;}
+
+#bg_wrapper { background-image:url(<?php echo $bg_img; ?>);
+              background-position:<?php echo $background_position; ?>;
+              background-repeat:<?php echo $background_repeat; ?>;
+              <?php echo $background_size; ?>
+              <?php if ($params->firma['bg_fixed'] == 'y') { ?>
+              background-attachment:fixed;
+              <?php } ?>
+}
+.content_width { max-width:<?php echo $content_width; ?>px; margin:auto; }
+.content_width_nopad { position:relative; max-width:<?php echo $content_width_nopad; ?>px; margin:auto; }
+
+.menu_width { max-width:<?php echo $menu_width; ?>px; }
+.menu_width_nopad { width:<?php echo $menu_width_nopad; ?>px; }
+
+/* .menu_content { position :absolute; top:<?php echo $content_padding; ?>px; left:<?php echo $content_padding; ?>px; right:0; bottom:<?php echo $content_padding; ?>px; } */
+.menu_content { position :relative; top:0; left:10px; right:0; padding-right:10px; bottom:<?php echo $content_padding; ?>px; }
+.content_center { max-width:<?php echo $content_center; ?>px; padding:0 <?php echo $content_padding; ?>px; }
+.content_select { max-width:<?php echo $content_center; ?>px; padding:0 <?php echo $content_padding; ?>px; text-align:left !important; }
+.content_center_nopad { max-width:<?php echo $content_center_nopad; ?>px; }
+.margin_menu { position_relative; margin-left:<?php echo $menu_width_nopad; ?>px; }
+#content_right { position:relative; }
+.modul_max { max-width:100% !important; }
+
+@media (max-width:<?php echo $content_width + 80; ?>px) {
+   .content_max { padding:0 <?php echo $content_padding; ?>px; }
+}
+
+@media (max-width:<?php echo $content_width; ?>px) {
+   #coupon { position:relative !important; width:unset !important; text-align:right; }
+}
+
+@media (min-width:<?php echo $content_width + 80; ?>px) {
+   .content_max { padding:0 40px; }
+}
+
+<?php if (!$is_flaeche_header && (int)$params->firma['abstand_oben'] > 0) { ?>
+   .abstand_oben { padding-top:<?php echo $params->firma['abstand_oben']; ?>px; }
+<?php } ?>
+
+<?php if ($is_flaeche_liste) { ?>
+   .article_filter_container { width:100%; }
+<?php } else { ?>
+.article_filter_container { max-width:<?php echo ($content_width + 20); ?>px; margin:auto; }
+<?php } ?>
+
+#kat_links {  }
+.padding_top { padding-top:<?php echo $content_padding; ?>px; }
+.padding_bottom { padding-bottom:<?php echo $content_padding; ?>px; }
+.art_box { width:<?php echo $thumb_width; ?>px; margin-right:<?php echo $artikel_abstand_h; ?>px; margin-bottom:<?php echo $artikel_abstand_h; ?>px; }
+#artikel img.art_box_link { width:100%; height:auto; }
+.line_h { height:<?php echo ($art_line_h); ?>px; bottom:-<?php echo ($artikel_abstand_h - ($artikel_abstand_h - $art_line_h) / 2); ?>px; }
+.line_v { width:<?php echo ($art_line_v); ?>px; right:-<?php echo ($artikel_abstand_v - ($artikel_abstand_v - $art_line_v) / 2); ?>px; }
+.abstand { height:<?php echo $params->firma['abstand']; ?>px; }
+/* .footer_boxen .startbanner { width:<?php echo CONF_THUMB_X; ?>px; height:<?php echo (CONF_THUMB_Y + 53); ?>px; } */
+#detail_image { max-width:<?php echo floor($content_width / 2); ?>px; }
+<?php if (!$is_flaeche_header) { ?>
+#logo_wrapper_obenx { background-color:transparent !important; }
+#logo_wrapper_untenx { background-color:transparent !important; }
+<?php } ?>
+.text_max { font-family:<?php echo $fonts[0][2]; ?>; font-weight:<?php echo $fonts[0][1]; ?>; font-size:<?php echo $fontsize1; ?>px; }
+.text_gross { font-family:<?php echo $fonts[1][2]; ?>; font-weight:<?php echo $fonts[1][1]; ?>; font-size:<?php echo $fontsize2; ?>px; }
+.text_normal { font-family:<?php echo $fonts[2][2]; ?>; font-weight:<?php echo $fonts[2][1]; ?>; font-size:<?php echo $fontsize3; ?>px; }
+.text_klein { font-family:<?php echo $fonts[3][2]; ?>; font-weight:<?php echo $fonts[3][1]; ?>; font-size:<?php echo $fontsize4; ?>px; }
+#cat_menu h1 {font-family:<?php echo $fonts[0][2]; ?>; font-weight:<?php echo $fonts[0][1]; ?>; font-size:<?php echo $fontsize1; ?>px;}
+#cat_menu h2 {line-height:unset; font-family:<?php echo $fonts[0][2]; ?>; font-weight:<?php echo $fonts[0][1]; ?>; font-size:<?php echo $fontsize1; ?>px;}
+#kategorie_sub h1 {display: inline-block; font-family:<?php echo $fonts[0][2]; ?>; font-weight:<?php echo $fonts[0][1]; ?>; font-size:<?php echo $fontsize1; ?>px; }
+#kategorie_sub h2 {display: inline-block; font-family:<?php echo $fonts[0][2]; ?>; font-weight:<?php echo $fonts[0][1]; ?>; font-size:<?php echo $fontsize1; ?>px; }
+#kategorie_sub h3 {display: inline-block; font-family:<?php echo $fonts[1][2]; ?>; font-weight:unset; ?>; font-size:<?php echo $fontsize2; ?>px; }
+#kat_links h1 {display: inline-block; font-family:<?php echo $fonts[0][2]; ?>; font-weight:<?php echo $fonts[0][1]; ?>; font-size:<?php echo $fontsize1; ?>px; }
+#kat_links h2 {display: inline-block; font-family:<?php echo $fonts[0][2]; ?>; font-weight:<?php echo $fonts[0][1]; ?>; font-size:<?php echo $fontsize1; ?>px; }
+#kat_links h3 {display: inline-block; font-family:<?php echo $fonts[1][2]; ?>; font-weight:unset; ?>; font-size:<?php echo $fontsize2; ?>px; }
+#responsive_menu h1 {display: inline-block; font-family:<?php echo $fonts[0][2]; ?>; font-weight:<?php echo $fonts[0][1]; ?>; font-size:<?php echo $fontsize1; ?>px; }
+#responsive_menu h2 {display: inline-block; font-family:<?php echo $fonts[0][2]; ?>; font-weight:<?php echo $fonts[0][1]; ?>; font-size:<?php echo $fontsize1; ?>px; }
+#responsive_menu h3 {display: inline-block; font-family:<?php echo $fonts[1][2]; ?>; font-weight:unset; ?>; font-size:<?php echo $fontsize2; ?>px; }
+
+#details_container, #article_container { visibility:hidden; }
+<?php echo '.cbp * > { visibility:hidden; }'; // verhinder Fehler bei NetBeans ?>
+.preview #filters_container { padding-top:0; }
+@media (max-width:<?php echo CONF_MAXSIZE_PHONE; ?>px) {
+   .hide_mobile { display:none !important; }
+}
+@media (min-width:<?php echo CONF_MAXSIZE_PHONE; ?>px) and (max-width:<?php echo CONF_MINSIZE_DESKTOP; ?>px) {
+   .hide_tablet { display:none !important; }
+}
+@media (min-width:<?php echo CONF_MINSIZE_DESKTOP; ?>px) {
+   .hide_desktop { display:none !important; }
+}
+<?php
+$coll_h  = round(370 * $content_width / 1183);
+$coll_w1 = round(591 * $content_width / 1183);
+$coll_w2 = round(812 * $content_width / 1183);
+$coll_w3 = round(370 * $content_width / 1183);
+?>
+.startbild_l img { display:block; position:relative; width:<?php echo $coll_w1; ?>px; height:<?php echo $coll_h; ?>px; margin:0 1px 1px 0; float:left}
+.startbild_r img { display:block; position:relative; width:<?php echo $coll_w1; ?>px; height:<?php echo $coll_h; ?>px; margin:0 0 1px 0; float: left; }
+.startbild_lb img { display:block; position:relative; width:<?php echo $coll_w2; ?>px; height:<?php echo $coll_h; ?>px; margin:0 1px 1px 0; float:left}
+.startbild_rb img { display:block; position:relative; width:<?php echo $coll_w2; ?>px; height:<?php echo $coll_h; ?>px; margin:0 0 1px 0; float: left; }
+.startbild_ls img { display:block; position:relative; width:<?php echo $coll_w3; ?>px; height:<?php echo $coll_h; ?>px; margin:0 1px 1px 0; float:left}
+.startbild_rs img { display:block; position:relative; width:<?php echo $coll_w3; ?>px; height:<?php echo $coll_h; ?>px; margin:0 0 1px 0; float: left; }
+
+<?php if ($params->user_id > 0) { ?>
+.hide_login { display:none; }
+<?php } else { ?>
+.hide_konto { display:none; }
+<?php } ?>
+#cookie_check { max-width:2200px; }

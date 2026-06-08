@@ -1,0 +1,48 @@
+/*
+###################################################################################
+  Kanpai Classic Shopsoftware Entwicklungsstand: 09.02.2020 Version 2
+
+  Kanpai Classic - Web Development
+  https://www.kanpaiclassic.com
+  https://www.kanpaiclassic.com
+
+  c Copyright by Kanpai Classic - Kanpai Classic Web Development
+
+
+  Copyrightvermerke duerfen NICHT entfernt werden!
+
+  ------------------------------------------------------------------------
+  Dieses Programm ist eine Software von Kanpai Classic Web Development.
+  Diese Software/Website ist eine Einzelplatzlizenz und für den Betrieb auf einem Speicherplatz 1 Installation berechtigt.
+  Die Veroeffentlichung dieses Programms erfolgt OHNE IRGENDEINE GARANTIE, sogar ohne
+  die implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT FUER EINEN BESTIMMTEN ZWECK.
+  Diese Script darf nicht veroeffentlicht oder weitergeben werden. Es gilt das Urheberrecht.
+  Diese Software darf nur mit schritflicher Genehmigung modifizieren werden.
+  Es gelten die Ihnen mitgeteilten Lizenzbestimmungen.
+  ------------------------------------------------------------------------
+  Bei Verstoß gegen die Lizenzbedingungen kann die Lizenz jederzeit entzogen werden. Der Kaufpreises wird nicht erstattet.
+  Wer gegen die Lizenzbedingungen verstoesst insbesondere bei illegalem Vertrieb oder Mehrfachnutzung des Scriptes  muss mit einer Vertragsstrafe von 50.000 Euro je Einzeldelikt rechnen!
+
+##################################################################################
+  Copyrightvermerke duerfen NICHT entfernt werden!
+*/
+p { margin:0; padding:0; }
+h1 { margin:0; padding:0; line-height:1.2em; }
+h2 { margin:0; padding:0; line-height:1.1em; }
+
+.edit1_rechner1_title { width:95px; }
+.edit1_rechner_m { width:30px; }
+.edit_rechner_ergebnis { display:inline-block; min-width:20px; text-align:right; }
+.edit_rechner_pakete { display:inline-block; padding-left:5px; }
+
+.edit2_rechner1 { width: 100px; }
+.edit2_rechner2 { width: 70px; }
+.edit2_rechner3 { width: 10px; }
+.edit2_rechner4 { width: 170px; }
+.edit1_rechner_title span, .edit1_rechner span, .edit2_rechner span { display:inline-block; }
+.edit1_rechner input, .edit2_rechner input { width:60px; text-align:right; }
+
+/* Farben */
+.edit1_rechner_title{ padding:5px 5px 0 5px; background-color:#ececec; }
+.edit1_rechner, .edit2_rechner { padding:5px; background-color:#ececec; }
+#edit1_ergebnis, .edit2_rechner1, .edit2_ergebnis2, #edit2_ergebnis1, #edit2_ergebnis2 { /* color:#000000; */ }

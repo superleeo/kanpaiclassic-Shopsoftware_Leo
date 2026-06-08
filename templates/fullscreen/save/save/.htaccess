@@ -1,0 +1,2 @@
+deny from all
+ErrorDocument 403 "<h1>Zugriff gesperrt</h1>"

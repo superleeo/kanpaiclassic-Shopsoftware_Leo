@@ -1,0 +1,46 @@
+/*
+###################################################################################
+  KANPAI CLASSIC Shopsoftware - Entwicklungsstand 06.2025
+
+  Kanpai Classic - Web Development
+  https://www.kanpaiclassic.com
+  https://www.kanpaiclassic.com
+
+  c Copyright by Kanpai Classic - Kanpai Classic Web Development
+
+
+  Copyrightvermerke duerfen NICHT entfernt werden!
+
+  ------------------------------------------------------------------------
+  Dieses Programm ist eine Software von Kanpai Classic Web Development.
+  Diese Software/Website ist eine Einzelplatzlizenz und für den Betrieb auf einem Speicherplatz 1 Installation berechtigt.
+  Die Veroeffentlichung dieses Programms erfolgt OHNE IRGENDEINE GARANTIE, sogar ohne
+  die implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT FUER EINEN BESTIMMTEN ZWECK.
+  Diese Script darf nicht veroeffentlicht oder weitergeben werden. Es gilt das Urheberrecht.
+  Diese Software darf nur mit schritflicher Genehmigung modifizieren werden.
+  Es gelten die Ihnen mitgeteilten Lizenzbestimmungen.
+  ------------------------------------------------------------------------
+  Bei Verstoß gegen die Lizenzbedingungen kann die Lizenz jederzeit entzogen werden. Der Kaufpreises wird nicht erstattet.
+  Wer gegen die Lizenzbedingungen verstoesst insbesondere bei illegalem Vertrieb oder Mehrfachnutzung des Scriptes  muss mit einer Vertragsstrafe von 50.000 Euro je Einzeldelikt rechnen!
+
+##################################################################################
+  Copyrightvermerke duerfen NICHT entfernt werden!
+*/
+
+* { margin: 0; padding: 0; font-family: Arial, sans-serif; }
+body { background-color: #dddddd; }
+
+/* Seitenaufbau */
+#seite { position:absolute; display:table; height:100%; width:100%; }
+#login { display:table-cell; vertical-align:middle; }
+#rahmen { position:relative; margin:0 auto; width:360px; border:1px solid #000000; background-color:#ffffff; }
+#rahmen-innen { margin:14px; padding:20px; background-color:#f0f0f0; }
+#login p.logintext { font-size:16px; font-weight:normal; margin:5px 0 0 0; color:#555555; }
+#login p.loginerror { font-size:12px; font-weight:bold; color:#ee0000; } /* für Fehlermeldungen */
+input[type='text'], input[type='password'] {display:block; width:277px; padding:3px 5px; border:1px solid #cccccc; font-size:16px; }
+input[type='submit'] { display:block; position:absolute; width:150px; height:30px; text-align:center; font-size:16px; font-weight:normal; border:2px solid #bbbbbb; background-color:#f0f0f0; cursor:pointer; }
+.login-btn { position:relative; border:1px solid #5f5f5f; margin:15px auto 0; width:150px; clear:both; height:30px; } /* Rahmen um Button */
+#login_forgotten { position:absolute; width:100%; left:0; bottom:-50px; font-size:12px; line-height:20px; text-align:center; padding:10px 0; cursor:pointer; }
+#login_forgotten:hover { text-decoration:underline; }
+#login_msg { line-height:16px; color:#227722; font-size:12px; text-align:center; padding-top:10px; }
+#login_error { line-height:16px; color:#cc0000; font-size:12px; text-align:center; }

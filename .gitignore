@@ -1,0 +1,39 @@
+# System files
+.DS_Store
+Thumbs.db
+*.bak
+
+# Debug / local dev files
+error_reporting_nicht_bei_kunden
+error_reporting_admin_nicht_bei_kunden
+developer_nicht_bei_kunden/
+
+# Temp and cache
+tmp/
+*.tmp
+*.log
+
+# Backup files
+*.sql.bak
+*.zip
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Session files
+classes/modules/xdebug/log/
+
+# Credentials (keep config.inc.php in repo as template, but note it needs editing)
+# admin/config.inc.php - contains DB credentials, edit locally
+
+# Vendor / third party (if using composer in future)
+vendor/
+composer.lock
+
+# Export files
+export/*.csv
+export/*.xml
+downloads/rechnungen/*.pdf

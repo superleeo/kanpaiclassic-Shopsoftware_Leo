@@ -1,0 +1,17 @@
+Fonts, die nur *.pdf haben sind Systemfonts, nicht entfernen
+
+Erstellt Fonts: *.pdf: *.z, *.ctg.z
+
+Font-Namen, die mit 1, 2 oder 3 beginnen sind für PDF-Katalog. Können gelöscht werden, da sie neu erstellt werden.
+
+etiketten: müssen vorhanden sein
+opensans
+opensansu
+roboto
+robotomono
+
+Aktuell für PDF verwendet:
+firasanslight
+firasansmedium (als bold)
+
+

@@ -1,0 +1,22 @@
+﻿// 1 - Kunde Status
+<h1>Status</h1><p>Nichtverifizierte Kunden sind NICHT eingeschränkt, damit Ihnen kein Umsatz verloren geht.</p>
+// 2 - Individueller Versandpreis
+<h1>Individueller Versandpreis</h1><p>Versandkosten bitte direkt beim Artikel eintragen (in Netto).</p>
+// 3 - Pauschale Versandkosten
+<h1>Pauschale Versandkosten</h1><p>Warenwert und Versandkosten tragen Sie als Netto ein!<br />Die indiv. Versandkosten in den Artikeln werden nicht berücksichtigt.</p>
+// 4 - Gewichtsabhängige Versandkosten
+<h1>Gewichtsabh. Versandkosten</h1><p>Das Gewicht der Artikel wird summiert und mit diesem angegebenen Preis-je-Kilogramm multipliziert.</p>
+// 5 - Versandkosten pro Stück
+<h1>Versandkosten pro Stück</h1><p>Alle Artikel werden addiert und mit den Versandkosten multipliziert.<br /></p>
+// 6 - Paypal-Testserver
+<h1>Paypal-Testserver</h1><p>Der Testserver dient uns nur zu Testzwecken, ob die Paypal-Funktion nach Installation funktionstüchtig ist.</p>
+// 7 - FE / Anmedung USt-Id
+<h1>Paypal-Testserver</h1><p>Hierzu Fragen?<br />Rufen Sie an: 0451-38944369<br />Supportzeit Mo-Do: 9:30-14:00</p>
+// 8 - FE / Bestellung/Details 1-2-3
+<h1>Bestallabwicklung</h1><p>Wir haben dazu eine ausführliche Erläuterung mit Screenshots erstellt.<br />Klicken Sie links auf das blaue Fragezeichen.</p>
+// 9 - Banner Upload
+<h1>swf-FlashBanner</h1><p>Eine .swf Flashdatei benötigt Abmaße. Diese Abmaße werden vom Jpg genommen, welches Sie ebenfalls hier hochladen können. Die .swf sollte also mit den gleichen Abmaßen hochgeladen werden wie das Jpg. Gleichzeitig wird das Jpg als Flashdetection für die jenigen genutzt, welche kein Flash anzeigen können. Dort wird dann das Jpg abgebildet.</p>
+// 10 - 360grad
+<h1>Bestallabwicklung</h1><p>exakt 36 Bilder mit Unterstrich+Zahl.</p>
+// 11 - Speditions-Kosten
+<h1>Hinweis:</h1><p>Im Admin-Artikel aktivieren Sie die Spedition 1, 2 oder 3</p>
