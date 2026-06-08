@@ -57,13 +57,13 @@ class KANPAICLASSIC_moduleAmazon
    private $sandbox        = false;
 
    // Zugangsdaten Sandbox
-   private $seller_id_sandbox      = 'YOUR_SELLER_ID';   // Seller-Id
+   private $seller_id_sandbox      = '';   // Seller-Id (placeholder)
    // Bezahlen
-   private $mws_access_key_sandbox = 'YOUR_AWS_ACCESS_KEY';
-   private $mws_secret_sandbox     = 'YOUR_AWS_SECRET_KEY';
+   private $mws_access_key_sandbox = '';  // (placeholder)
+   private $mws_secret_sandbox     = '';  // (placeholder)
    // Login
-   private $client_id_sandbox      = 'YOUR_AMAZON_CLIENT_ID';
-   private $client_secret_sandbox  = 'YOUR_AMAZON_CLIENT_SECRET';
+   private $client_id_sandbox      = '';  // (placeholder)
+   private $client_secret_sandbox  = '';  // (placeholder)
 
    private $params;
 
